@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Elgentos_Dynamiclinks>
+            <version>0.1.2</version>
+        </Elgentos_Dynamiclinks>
+    </modules>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Elgentos_Dynamiclinks>
+                    <files>
+                        <default>Elgentos_Dynamiclinks.csv</default>
+                    </files>
+                </Elgentos_Dynamiclinks>
+            </modules>
+        </translate>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <dynamiclinks translate="title" module="dynamiclinks">
+                                        <title>Dynamiclinks</title>
+                                    </dynamiclinks>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    </adminhtml>
+
+    <frontend>
+        <events>
+            <cms_page_render>
+                <observers>
+                    <dynamiclinks>
+                        <type>singleton</type>
+                        <class>Elgentos_Dynamiclinks_Model_Header</class>
+                        <method>add</method>
+                    </dynamiclinks>
+                </observers>
+            </cms_page_render>
+        </events>
+    </frontend>
+
+    <global>
+        <blocks>
+            <dynamiclinks>
+                <class>Elgentos_Dynamiclinks_Block</class>
+            </dynamiclinks>
+            <catalog>
+                <rewrite>
+                    <product_list_upsell>Elgentos_Dynamiclinks_Block_Catalog_Product_List_Upsell</product_list_upsell>
+                </rewrite>
+            </catalog>
+        </blocks>
+
+        <events>
+            <catalog_block_product_list_collection>
+                <observers>
+                    <catalog_block_product_list_observer>
+                        <type>singleton</type>
+                        <class>Elgentos_Dynamiclinks_Model_Observer</class>
+                        <method>dispatcher</method>
+                    </catalog_block_product_list_observer>
+                </observers>
+            </catalog_block_product_list_collection>
+        </events>
+
+        <models>
+            <dynamiclinks>
+                <class>Elgentos_Dynamiclinks_Model</class>
+            </dynamiclinks>
+        </models>
+
+        <helpers>
+            <dynamiclinks>
+                <class>Elgentos_Dynamiclinks_Helper</class>
+            </dynamiclinks>
+        </helpers>
+
+    </global>
+    <default>
+        <dynamiclinks>
+            <general>
+                <disabled>0</disabled>
+                <unders>0</unders>
+                <aboves>0</aboves>
+                <sorton>price</sorton>
+                <force>0</force>
+                <direction>0</direction>
+            </general>
+        </dynamiclinks>
+    </default>
+</config>
